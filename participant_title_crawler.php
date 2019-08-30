@@ -29,6 +29,6 @@ foreach($elements as $element){
     array_push($mobile_urls, $mobile_url);
 }
 
-print_r($web_urls);
-print_r($mobile_urls);
+// print_r($web_urls);
+// print_r($mobile_urls);
 
