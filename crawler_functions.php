@@ -16,3 +16,10 @@ function getElementsByClass($dom, $classname){
     $elements = $finder->query("//*[@class='$classname']");
     return $elements;
 }
+
+function checkToday($datetime){
+    if(date('Y-m-d') != date('Y-m-d', strtotime($datetime))){
+        return "No posts today";
+    }
+    return "Finished";
+}

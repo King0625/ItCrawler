@@ -38,10 +38,13 @@ foreach($web_urls as $web_url){
     // die(var_dump($datetime));
 
     $days = ($page - 1) * 10 + count($elements);
-    
-    // echo $account . ": " . $days . " days ; ";
-    // echo "Latest finished datetime" . ": " . $datetime . "\n";
-    array_push($result, ['account' => $account , 'finished_days' => $days , 'latest finished date' => $datetime]);
+
+    echo "Datetime: " . date('Y-m-d H:i:s') . "\n";
+    echo $account . ": " . $days . " days ; ";
+    echo "Latest finished datetime" . ": " . $datetime . "\n";
+    echo "Posted today: " . checkToday($datetime) . "\n";
+
+    array_push($result, ['account' => $account , 'finished_days' => $days , 'latest finished date' => $datetime, 'Finished today' => checkToday($datetime)]);
 
 }
 
@@ -59,21 +62,24 @@ foreach($web_urls as $web_url){
 //     $days = $json_page['data']['ironman']['topic_count'];
 //     $articles_count = count($json_page['data']['articles']);
 
-//     // But pages??
 //     $created_at = $json_page['data']['articles'][$articles_count - 1]['created_at'];
 //     $timestamps = preg_replace( '/[^0-9]/', '', $created_at);
 //     $datetime = date("Y-m-d H:i:s", $timestamps / 1000);
 
-//     // var_dump($created_at);
-//     // echo $account . ": " . $days . " days ; ";
-//     // echo "Latest finished date: " . $datetime . "\n";
+    
+//     echo date('Y-m-d H:i:s') . "\n";
 
-//     array_push($result, ['account' => $account , 'finished_days' => $days , 'latest finished date' => $datetime]);
+//     // var_dump($created_at);
+//     echo $account . ": " . $days . " days ; ";
+//     echo "Latest finished date: " . $datetime . "\n";
+//     echo "Posted today: " . checkToday($datetime) . "\n";
+
+//     array_push($result, ['account' => $account , 'finished_days' => $days , 'latest finished date' => $datetime, 'Finished today' => checkToday($datetime)]);
 
 // }
 
 // print_r($result);
-echo json_encode($result);
+// echo json_encode($result);
    
   
     
