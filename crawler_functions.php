@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Taipei');
 
 function crawlPage($url){
     $ch = curl_init($url);
