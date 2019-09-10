@@ -2,6 +2,7 @@
 
 include 'participant_title_crawler.php';
 
+header("Content-type:application/json");
 /** Sync crawler */
 // Web
 
@@ -133,6 +134,9 @@ include 'participant_title_crawler.php';
 //     $classname = "ir-qa-list__status";
 //     $elements = getElementsByClass($dom, $classname);
 
+//     $classname = "qa-list__title qa-list__title--ironman";
+//     $title = getElementsByClass($dom, $classname)[0]->nodeValue;
+    
 //     $classname = "qa-list__info-time";
 //     $date = getElementsByClass($dom, $classname);
 //     $datetime = $date[count($date) - 1];
@@ -144,22 +148,27 @@ include 'participant_title_crawler.php';
 //     $days = ($page - 1) * 10 + count($elements);
 
 //     $data[$i]['account'] = (curl_errno($ch) == 0) ? $account : false;
+//     $data[$i]['topic'] = (curl_errno($ch) == 0) ? $title : false;
 //     $data[$i]['topic_count'] = (curl_errno($ch) == 0) ? $days : false;
 //     $data[$i]['latest_finish_date'] = (curl_errno($ch) == 0) ? $datetime : false;
 //     $data[$i]['posted_today'] = (curl_errno($ch) == 0) ? checkToday($datetime) : false;
 
 // }
 
-// print_r($data);
+// // print_r($data);
+// echo json_encode($data);
 
 
 
 // Mobile
 
 $handle_first = multi_crawler_init($mobile_urls);
-
+// multi_crawler_init($mobile_urls);
+// var_dump($handle_first);
+// die();
 foreach($handle_first as $i => $ch) {
     $content  = curl_multi_getcontent($ch);
+    // $json_page  = curl_multi_getcontent($ch);
     $json_page = json_decode($content, true);
     
     $pages = (curl_errno($ch) == 0) ? $json_page['paginator']['total_pages'] : false;
@@ -172,10 +181,15 @@ $data = array();
 
 foreach($handle_last_page as $i => $ch) {
     $content  = curl_multi_getcontent($ch);
+    
     $json_page = json_decode($content, true);
     
-    $data[$i]['topic_count'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['topic_count'] : false;
+    $data[$i]['link'] = (curl_errno($ch) == 0) ? $web_urls[$i] : false;
     $data[$i]['account'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['account'] : false;
+    $data[$i]['nickname'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['nickname'] : false;
+    $data[$i]['avatar'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['avatar'] : false;
+    $data[$i]['subject'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['subject'] : false;
+    $data[$i]['topic_count'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['topic_count'] : false;
 
     $articles_count = count($json_page['data']['articles']);
     $created_at = $json_page['data']['articles'][$articles_count - 1]['created_at'];
@@ -187,6 +201,7 @@ foreach($handle_last_page as $i => $ch) {
 }
 
 echo json_encode($data);
+// print_r($data);
    
   
     

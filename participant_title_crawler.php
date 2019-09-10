@@ -5,7 +5,6 @@ include "crawler_functions.php";
 $url = 'https://ithelp.ithome.com.tw/2018ironman/signup/team/17';
 
 $ch = curl_init($url);
-
 $dom = new DOMDocument;
 @$dom->loadHTML(crawlOnePage($ch));
 $dom->saveHTML($dom->documentElement);

@@ -30,7 +30,20 @@ function multi_crawler_init($urls){
         curl_multi_select($mh);
     } while ($running > 0);
 
-    curl_multi_remove_handle($mh, $ch);
+    // curl_multi_exec($mh, $running);
+    // do{
+    //     if (curl_multi_select($mh, 99) === -1)
+    //     {
+    //         usleep(1);
+    //         continue;
+    //     }
+    //     curl_multi_exec($mh, $running);
+    // } while ($running);
+    
+
+    foreach($handle as $i => $c){
+        curl_multi_remove_handle($mh, $c);
+    }
     curl_multi_close($mh);
     
     return $handle;
