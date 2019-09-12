@@ -3,6 +3,7 @@ include "crawler_functions.php";
 
 
 $url = 'https://ithelp.ithome.com.tw/2018ironman/signup/team/17';
+// $url = 'https://ithelp.ithome.com.tw/2020ironman/signup/team/60';
 
 $ch = curl_init($url);
 $dom = new DOMDocument;
