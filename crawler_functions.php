@@ -15,6 +15,7 @@ function multi_crawler_init($urls){
     $handle = array();
     $i = 0;
     $running = 0;
+    curl_multi_setopt($mh, CURLMOPT_MAX_PIPELINE_LENGTH, 20);
     foreach($urls as $url){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
