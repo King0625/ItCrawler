@@ -57,7 +57,7 @@ function getElementsByClass($dom, $classname){
 
 function checkToday($datetime){
     if(date('Y-m-d') != date('Y-m-d', strtotime($datetime))){
-        return "No posts today";
+        return "No posts today!!!!!!!!!";
     }
-    return "Finished";
+    return "Finished~";
 }
