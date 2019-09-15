@@ -177,31 +177,49 @@ foreach($handle_first as $i => $ch) {
 
 $handle_last_page = multi_crawler_init($mobile_urls);
 
-$data = array();
+$datas = array();
 
 foreach($handle_last_page as $i => $ch) {
     $content  = curl_multi_getcontent($ch);
     
     $json_page = json_decode($content, true);
     
-    $data[$i]['link'] = (curl_errno($ch) == 0) ? $web_urls[$i] : false;
-    $data[$i]['account'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['account'] : false;
-    $data[$i]['nickname'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['nickname'] : false;
-    $data[$i]['avatar'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['avatar'] : false;
-    $data[$i]['subject'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['subject'] : false;
-    $data[$i]['topic_count'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['topic_count'] : false;
+    $datas[$i]['link'] = (curl_errno($ch) == 0) ? $web_urls[$i] : false;
+    $datas[$i]['account'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['account'] : false;
+    $datas[$i]['nickname'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['nickname'] : false;
+    $datas[$i]['avatar'] = (curl_errno($ch) == 0) ? $json_page['data']['user']['avatar'] : false;
+    $datas[$i]['subject'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['subject'] : false;
+    $datas[$i]['topic_count'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['topic_count'] : false;
 
     $articles_count = count($json_page['data']['articles']);
     $created_at = $json_page['data']['articles'][$articles_count - 1]['created_at'];
     $timestamps = preg_replace( '/[^0-9]/', '', $created_at);
     $datetime = date("Y-m-d H:i:s", $timestamps / 1000);
-    $data[$i]['latest_finish_date'] = (curl_errno($ch) == 0) ? $datetime : false;
-    $data[$i]['posted_today'] = (curl_errno($ch) == 0) ? checkToday($datetime) : false;
+    $datas[$i]['latest_finish_date'] = (curl_errno($ch) == 0) ? $datetime : false;
+    $datas[$i]['posted_today'] = (curl_errno($ch) == 0) ? checkToday($datetime) : false;
 
 }
 
+$backend_camp = ['shivaxsin', 'charleen_xu', 'd44041122', 'kenchen0625', 'louis222220', 'SarahCheng'];
+$android_camp = ['Kuroki', 'barnersh', 'larsnoya', 'zoeaeen13', 'jonec76'];
+$ios_camp = ['ytyubox', 'gg831006', 'emmatw', 'yuyuma17', 'Jes', 'henryluuu', 'aa08666', 'ablacktaco'];
+$web_camp = ['kirayang', 'askie', 'Penghua', 'xsw', 'letterliu', 'tsuifei', 'onlystp417', 'titangene', 'mangosu', 'yachen'];
+
+$status = array();
 // $options = [];
-echo json_encode($data,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+foreach($datas as $data){
+    if(in_array($data['account'], $web_camp)){
+        $status['web_camp'][] = $data;
+    }elseif(in_array($data['account'], $android_camp)){
+        $status['android_camp'][] = $data;
+    }elseif(in_array($data['account'], $backend_camp)){
+        $status['backend_camp'][] = $data;
+    }elseif(in_array($data['account'], $ios_camp)){
+        $status['ios_camp'][] = $data;
+    }
+}
+
+echo json_encode($status,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 // print_r($data);
    
   

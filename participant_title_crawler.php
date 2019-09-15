@@ -2,8 +2,8 @@
 include "crawler_functions.php";
 
 
-$url = 'https://ithelp.ithome.com.tw/2018ironman/signup/team/17';
-// $url = 'https://ithelp.ithome.com.tw/2020ironman/signup/team/60';
+// $url = 'https://ithelp.ithome.com.tw/2018ironman/signup/team/17';
+$url = 'https://ithelp.ithome.com.tw/2020ironman/signup/team/78';
 
 $ch = curl_init($url);
 $dom = new DOMDocument;
@@ -33,4 +33,3 @@ foreach($elements as $element){
 
 // print_r($web_urls);
 // print_r($mobile_urls);
-
