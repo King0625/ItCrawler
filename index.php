@@ -3,6 +3,8 @@
 include 'participant_title_crawler.php';
 
 header("Content-type:application/json");
+header("Access-Control-Allow-Origin: *");
+
 /** Sync crawler */
 // Web
 
@@ -207,19 +209,23 @@ $web_camp = ['kirayang', 'askie', 'Penghua', 'xsw', 'letterliu', 'tsuifei', 'onl
 
 $status = array();
 // $options = [];
+
+// Fix the format of json data
 foreach($datas as $data){
     if(in_array($data['account'], $web_camp)){
-        $status['web_camp'][] = $data;
+        $status[0]['web_camp'][] = $data;
     }elseif(in_array($data['account'], $android_camp)){
-        $status['android_camp'][] = $data;
+        $status[0]['android_camp'][] = $data;
     }elseif(in_array($data['account'], $backend_camp)){
-        $status['backend_camp'][] = $data;
+        $status[0]['backend_camp'][] = $data;
     }elseif(in_array($data['account'], $ios_camp)){
-        $status['ios_camp'][] = $data;
+        $status[0]['ios_camp'][] = $data;
     }
 }
 
-echo json_encode($status,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+// var_dump($status);
+// echo date('Y-m-d H:i:s');
+echo json_encode($status,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
 // print_r($data);
    
   
