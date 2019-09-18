@@ -44,27 +44,31 @@ curl_setopt($ch, CURLOPT_URL, $webhook_url);
 curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
 curl_setopt($ch, CURLOPT_POST, true);
 
-if(date("H:i:s") >= date("H:i:s" , strtotime('21:30:00'))){
-    $json_data = [
-        "text" => " :face_with_symbols_on_mouth: *21:30 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
-    ];
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-    curl_exec($ch);
 
-}elseif(date("H:i:s") >= date("H:i:s" , strtotime('21:00:00'))){
-    $json_data = [
-        "text" => " :rage: *21:00 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
-    ];
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-    curl_exec($ch);
+if(!$results == []){
+    if(date("H:i") == date("H:i" , strtotime('21:30'))){
+        $json_data = [
+            "text" => " :face_with_symbols_on_mouth: *21:30 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        curl_exec($ch);
     
-}elseif(date("H:i:s") >= date("H:i:s" , strtotime('18:00:00'))){
-    $json_data = [
-        "text" => " :thinking_face: *18:00 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
-    ];
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-    curl_exec($ch);
+    }elseif(date("H:i") == date("H:i" , strtotime('21:00'))){
+        $json_data = [
+            "text" => " :rage: *21:00 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        curl_exec($ch);
+        
+    }elseif(date("H:i") == date("H:i" , strtotime('18:00'))){
+        $json_data = [
+            "text" => " :thinking_face: *18:00 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        curl_exec($ch);
+    }
 }
+
 
 curl_close($ch);
 

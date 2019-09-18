@@ -232,6 +232,4 @@ foreach($datas as $data){
 // var_dump($status);
 // echo date('Y-m-d H:i:s');
 // print_r($data);
-   
-  
     
