@@ -1,8 +1,6 @@
 <?php
 
 $request = $_SERVER['REQUEST_URI'];
-echo $request;
-die();
 switch ($request) {
     case '/' :
         require __DIR__ . '/output.php';
