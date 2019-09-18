@@ -1,5 +1,19 @@
 <?php
-include('finished_day_crawler.php');
 
-echo json_encode($status,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
-
+$request = $_SERVER['REQUEST_URI'];
+echo $request;
+die();
+switch ($request) {
+    case '/' :
+        require __DIR__ . '/output.php';
+        break;
+    case '' :
+        require __DIR__ . '/output.php';
+        break;
+    case '/warning' :
+        require __DIR__ . '/warning_notification.php';
+        break;
+    default:
+        require __DIR__ . '/404.php';
+        break;
+}
