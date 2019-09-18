@@ -1,5 +1,6 @@
 <?php
 include('finished_day_crawler.php');
+include('config.php');
 
 $camps = $status[0];
 $warning_members = array();
@@ -16,18 +17,55 @@ $android_camp = ['Kuroki', 'barnersh', 'larsnoya', 'zoeaeen13', 'jonec76'];
 $ios_camp = ['ytyubox', 'gg831006', 'emmatw', 'yuyuma17', 'Jes', 'henryluuu', 'aa08666', 'ablacktaco'];
 $web_camp = ['kirayang', 'askie', 'Penghua', 'xsw', 'letterliu', 'tsuifei', 'onlystp417', 'titangene', 'mangosu', 'yachen'];
 
-$result = array();
+$results = array();
 
 foreach($warning_members as $warning_member){
     if(in_array($warning_member, $web_camp)){
-        $result['web_camp'][] = $warning_member;
+        $results['web_camp'][] = $warning_member;
     }elseif(in_array($warning_member, $android_camp)){
-        $result['android_camp'][] = $warning_member;
+        $results['android_camp'][] = $warning_member;
     }elseif(in_array($warning_member, $backend_camp)){
-        $result['backend_camp'][] = $warning_member;
+        $results['backend_camp'][] = $warning_member;
     }elseif(in_array($warning_member, $ios_camp)){
-        $result['ios_camp'][] = $warning_member;
+        $results['ios_camp'][] = $warning_member;
     }
 }
-// var_dump($warning_list);
-echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
+$web_string = " *web camp* : " . implode(', ', $results['web_camp']);
+$ios_string = " *ios camp* : " . implode(', ', $results['ios_camp']);
+$android_string = " *android camp* : " . implode(', ', $results['android_camp']);
+$backend_string = " *backend camp* : " . implode(', ', $results['backend_camp']);
+
+
+$webhook_url = WEB_HOOK_URL;
+// POST 資料
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $webhook_url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+curl_setopt($ch, CURLOPT_POST, true);
+
+if(date("H:i:s") >= date("H:i:s" , strtotime('21:30:00'))){
+    $json_data = [
+        "text" => " :face_with_symbols_on_mouth: *21:30 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
+    ];
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    curl_exec($ch);
+
+}elseif(date("H:i:s") >= date("H:i:s" , strtotime('21:00:00'))){
+    $json_data = [
+        "text" => " :rage: *21:00 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
+    ];
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    curl_exec($ch);
+    
+}elseif(date("H:i:s") >= date("H:i:s" , strtotime('18:00:00'))){
+    $json_data = [
+        "text" => " :thinking_face: *18:00 未發文的同學* : \n " . $web_string . " \n " . $ios_string . " \n " . $android_string . " \n " . $backend_string
+    ];
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    curl_exec($ch);
+}
+
+curl_close($ch);
+
+// echo json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

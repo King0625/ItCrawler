@@ -194,6 +194,12 @@ foreach($handle_last_page as $i => $ch) {
     $datas[$i]['topic_count'] = (curl_errno($ch) == 0) ? $json_page['data']['ironman']['topic_count'] : false;
 
     $articles_count = count($json_page['data']['articles']);
+    $latest_article_subject = $json_page['data']['articles'][$articles_count - 1]['subject'];
+    $latest_article_id = $json_page['data']['articles'][$articles_count - 1]['article_id'];
+    $latest_article_link = 'https://ithelp.ithome.com.tw/articles/' . $latest_article_id;
+    $datas[$i]['latest_article_subject'] = $latest_article_subject;
+    $datas[$i]['latest_article_link'] = $latest_article_link;
+    
     $created_at = $json_page['data']['articles'][$articles_count - 1]['created_at'];
     $timestamps = preg_replace( '/[^0-9]/', '', $created_at);
     $datetime = date("Y-m-d H:i:s", $timestamps / 1000);
