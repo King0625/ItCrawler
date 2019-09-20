@@ -44,6 +44,8 @@ $ios_string = " *ios camp* : " . implode(' ', $results['ios_camp']);
 $android_string = " *android camp* : " . implode(' ', $results['android_camp']);
 $backend_string = " *backend camp* : " . implode(' ', $results['backend_camp']);
 
+// var_dump($web_string);
+// die();
 
 $webhook_url = WEB_HOOK_URL;
 // POST 資料

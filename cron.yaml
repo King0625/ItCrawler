@@ -11,3 +11,11 @@ cron:
   url: /warning
   schedule: every day 21:30
   timezone: Asia/Taipei
+- description: "Saturday remind"
+  url: /weekend
+  schedule: every saturday 10:30
+  timezone: Asia/Taipei
+- description: "Sunday remind"
+  url: /weekend
+  schedule: every sunday 10:30
+  timezone: Asia/Taipei
